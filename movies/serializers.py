@@ -12,13 +12,13 @@ class MovieSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
         fields = ["id", "title", "duration", "premiere", "budget", "overview", "genres"]
+        read_only_fields = ["id"]
 
     def create(self, validated_data):
         validated_genres = validated_data.pop("genres")
 
         instance_movie = Movie.objects.create(**validated_data)
-
         for genre in validated_genres:
-            instance_movie.genres.add(Genre.objects.create(**genre))
+            instance_movie.genres.add(Genre.objects.get_or_create(**genre)[0])
 
         return instance_movie

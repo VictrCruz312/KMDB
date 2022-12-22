@@ -34,13 +34,13 @@ class Command(base.BaseCommand):
             if not email:
                 user_admin["email"] = username + "@example.com"
 
-        email_exists = User.objects.filter(email=email).exists()
-        username_exists = User.objects.filter(username=username).exists()
+        email_exists = User.objects.filter(email=user_admin["email"]).exists()
+        username_exists = User.objects.filter(username=user_admin["username"]).exists()
 
-        if email_exists:
-            raise CommandError(f"Email `{user_admin['email']}` already taken.")
         if username_exists:
             raise CommandError(f"Username `{user_admin['username']}` already taken.")
+        if email_exists:
+            raise CommandError(f"Email `{user_admin['email']}` already taken.")
 
         User.objects.create_superuser(**user_admin)
 
