@@ -1,4 +1,5 @@
 # KMDB
+Api para cadastro de filmes e possibilidade de usuários avaliarem os filmes cadastrados.
 
 ## Clone do repósitorio + execução local:
 
